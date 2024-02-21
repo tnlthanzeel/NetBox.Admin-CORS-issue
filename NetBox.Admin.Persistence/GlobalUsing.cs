@@ -1,0 +1,12 @@
+﻿global using Ardalis.Specification;
+global using Ardalis.Specification.EntityFrameworkCore;
+global using FluentValidation.Results;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.Data.SqlClient;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using NetBox.Admin.SharedKernal;
+global using NetBox.Admin.SharedKernal.Exceptions;
+global using NetBox.Admin.SharedKernal.Models;
+global using NetBox.Admin.SharedKernal.Responses;
+global using System.Security.Claims;

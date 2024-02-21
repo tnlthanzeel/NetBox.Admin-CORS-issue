@@ -1,0 +1,43 @@
+.navbar-toggle {
+    background: aliceblue;
+    padding: 1px;
+    border: none;
+}
+
+.toggle {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 53px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    overflow-y: auto;
+}
+
+.menu-item {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.sidebar-sub-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0px 0px 0px 35px;
+}
+
+.sidemenu-item {
+    padding: 5px 0px;
+    border-top: solid 1px #f0ebeb;
+    border-bottom: solid 1px #f0ebeb;
+}
+
+.sub-menu-text {
+    color: #8a8a8a;
+
+    &:hover {
+        color: black;
+    }
+}

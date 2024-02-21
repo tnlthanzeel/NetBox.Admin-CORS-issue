@@ -1,0 +1,34 @@
+<div class="wrapper-card">
+    <div class="permission-group" *ngFor="let group of permissionGroups">
+        <div class="j-center  pg-name"> {{group.key}}</div>
+        <div class="cards_wrap" *ngFor="let permission of group.value">
+            <div class="card_item">
+                <div class="card_inner">
+                    <div class="card-sm-h d-flex">
+                        <div class="fs-lg fw-500 mr-2">{{ permission.key }}</div>
+                        <label class="custom-toggle" *ngIf="!isView">
+                            <input type="checkbox" [checked]="permission.isAllPermission"
+                                (change)="changePermissionList($event, permission.key)">
+                            <span class="custom-toggle-slider rounded-circle"></span>
+                        </label>
+                    </div>
+                    <div class="card-sm-b mt-3">
+                        <div *ngFor="let permissionValue of permission.value" class="permission">
+                            <span class="fs-md fw-300 name wd-100">{{ permissionValue.displayName }}</span>
+                            <label class="custom-toggle">
+                                <input type="checkbox"
+                                    [checked]="permissionNames.indexOf(permissionValue.key) == -1 ? false : true"
+                                    (change)="selectedPermissions($event, permissionValue, permission.key)"
+                                    [disabled]="isPermissionEdit == false">
+                                <span class="custom-toggle-slider rounded-circle"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="j-center" *ngIf="group.value.length == 0">Permissions not defined yet</div>
+    </div>
+
+</div>

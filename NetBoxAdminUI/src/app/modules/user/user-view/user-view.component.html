@@ -1,0 +1,64 @@
+<netbox-block-ui [isBlocked]="isBlocked"></netbox-block-ui>
+<section class="container-fluid fluid-wrapper mt-3">
+    <div class="row">
+        <div class="col-lg-10 col-md-8 col-sm-12">
+            <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control"
+                        placeholder="Search by First Name, Last Name, Username or Email Address." type="text"
+                        [(ngModel)]="searchModel.searchTerm" (keyup)="search()" (focus)="focus = true"
+                        (blur)="focus = false">
+                </div>
+            </div>
+        </div>
+        <div class="d-grid col-lg-2 col-md-4 col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="viewCreateUser()"
+                [netBoxAuthorization]="[p.SA.all, p.User.create]">+ User</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-4 col-md-4 col-sm-12" *ngFor="let user of userModels">
+            <div class="card card-stats card-design mt-2 mb-4 mb-xl-0">
+                <div class="card-body" ngbDropdown>
+                    <div class="row">
+                        <div class="col">
+                            <span class="h2 font-weight-bold mb-0">{{ user.firstName + ' ' + user.lastName }}</span>
+                            <h5 class="card-title text-uppercase text-muted mb-0">{{ user.email}}</h5>
+                            <span class="badge badge-danger"> {{ user.roles[0]}}</span>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn" ngbDropdownToggle
+                                [netBoxAuthorization]="[p.SA.all, p.User.edit, p.User.delete]">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+                                <a (click)="viewEditUser(user.id)" [netBoxAuthorization]="[p.SA.all, p.User.edit]"
+                                    class="dropdown-item">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit</span>
+                                </a>
+                                <a class="dropdown-item" [netBoxAuthorization]="[p.SA.all, p.User.delete]"
+                                    (click)="deleteUser(user.id)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="mx-auto">
+            <netbox-no-records [items]="userModels"></netbox-no-records>
+        </div>
+    </div>
+</section>
+
+<netbox-user-create #userCreateComponent (userCreationClosed)="setDisplay()" (userRolesList)="getUsers()"
+    [isDisplay]="isDisplay" [userId]="userId" [isEdit]="isEdit"></netbox-user-create>

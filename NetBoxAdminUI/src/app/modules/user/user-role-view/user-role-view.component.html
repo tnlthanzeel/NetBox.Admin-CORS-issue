@@ -1,0 +1,82 @@
+<netbox-block-ui [isBlocked]="isBlocked"></netbox-block-ui>
+<section class="container-fluid fluid-wrapper mt-3">
+    <div class="row">
+        <div class="col-lg-10 col-md-8 col-sm-12">
+            <div class="form-group mb-0" [ngClass]="{ 'focused': focus === true }">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search by Role Name." type="text" (focus)="focus = true"
+                        (blur)="focus = false" [(ngModel)]="searchModel.searchTerm" (keyup)="search()">
+                </div>
+            </div>
+        </div>
+        <div class="d-grid col-lg-2 col-md-4 col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="viewCreateRole()"
+                [netBoxAuthorization]="[p.SA.all, p.Role.create]">+ User Role</button>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-xl-3 col-lg-6" *ngFor="let userRole of userRoles">
+            <div class="card card-stats card-design mt-2 mb-4 mb-xl-0">
+                <div class="card-body" ngbDropdown>
+                    <div class="row">
+                        <div class="col">
+                            <span class="h2 font-weight-bold mb-0">{{ userRole.roleName }}</span>
+                        </div>
+                        <button class="btn" ngbDropdownToggle
+                            [netBoxAuthorization]="[p.SA.all, p.Role.update,p.Role.delete]">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+                            <a (click)="editRole(userRole.roleId)"
+                                [netBoxAuthorization]="[p.SA.all, p.Role.update,p.Role.updateRoleClaim]"
+                                class="dropdown-item">
+                                <i class="fas fa-edit"></i>
+                                <span>Edit</span>
+                            </a>
+                            <a class="dropdown-item" [netBoxAuthorization]="[p.SA.all, p.Role.delete]"
+                                (click)="deleteRole(userRole.roleId)">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                <span>Delete</span>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div (click)="viewPermission(userRole)">
+                        <a class="role link" [netBoxAuthorization]="[p.SA.all, p.Role.updateRoleClaim,p.Role.view]">View
+                            Permissions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto">
+            <netbox-no-records [items]="userRoles"></netbox-no-records>
+        </div>
+    </div>
+</section>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': displayStyle}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ userPermissionComponent.userRole != undefined ?
+                    userPermissionComponent.userRole.roleName : '' }}</h3>
+                <button class="btn" mat-icon-button (click)="closePopup()"><span
+                        class="material-icons-round">close</span></button>
+            </div>
+            <div class="modal-body">
+                <netbox-user-permission-view #userPermissionComponent
+                    [isPermissionEdit]="isEdit"></netbox-user-permission-view>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light mr-2" (click)="closePopup()">Discard</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<netbox-user-role-create #userRoleCreateComponent [roleId]="roleId" [isEdit]="isEdit"
+    (rolesUpdatedList)="getUserRoles()"></netbox-user-role-create>

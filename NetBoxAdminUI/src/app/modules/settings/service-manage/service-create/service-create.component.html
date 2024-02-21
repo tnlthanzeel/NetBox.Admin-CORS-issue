@@ -1,0 +1,81 @@
+<div class="card shadow">
+    <div class="card-header border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0" *ngIf="!isEdit">Create Service (Category: {{serviceType.name}})</h3>
+                <h3 class="mb-0" *ngIf="isEdit">Update Service (Category: {{serviceType.name}})</h3>
+            </div>
+            <div class="col-4 text-right">
+                <a (click)="create()" class="btn btn-sm btn-primary" *ngIf="!isEdit">CREATE</a>
+                <a (click)="update()" class="btn btn-sm btn-primary" *ngIf="isEdit">UPDATE</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="serviceForm">
+            <div class="form w-100">
+                <label class="form__label">Service<span class="danger-color">*</span></label>
+                <input class="form-control form-control-alternative" placeholder="Ex : Design" formControlName="name"
+                    autocomplete="off">
+                <div class="badge badge-danger" *ngIf="validationModel.displayMessage.name">
+                    {{validationModel.displayMessage.name}}
+                </div>
+            </div>
+            <div class="form w-100">
+                <label class="form__label">Rate<span class="danger-color">*</span></label>
+                <input type="number" class="form-control form-control-alternative" formControlName="rate"
+                    autocomplete="off">
+                <div class="badge badge-danger" *ngIf="validationModel.displayMessage.rate">
+                    {{validationModel.displayMessage.rate}}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="card shadow mt-3">
+    <div class="card-header border-0">
+        <div class="row align-items-center">
+            <div class="col-8">
+                <h3 class="mb-0">Services</h3>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let service of services">
+                    <th scope="row">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <span class="mb-0 text-sm">{{service.name}}</span>
+                            </div>
+                        </div>
+                    </th>
+                    <td class="j-end">
+                        <a class="btn btn-sm" (click)="getServiceById(service)"> <i class="fas fa-edit"></i></a>
+                        <a class="btn btn-sm" (click)="deleteService(service)"> <i class="fa fa-trash"
+                                aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mx-auto">
+            <netbox-no-records [items]="services"></netbox-no-records>
+        </div>
+    </div>
+    <div class="card-footer py-4">
+        <mat-paginator [length]="searchModel.totalRecords" [pageSize]="searchModel.pageSize"
+            (page)="pageChanged($event)" [pageSizeOptions]="pageSizeOptions" aria-label="Select page"
+            [showFirstLastButtons]="true">
+        </mat-paginator>
+    </div>
+</div>

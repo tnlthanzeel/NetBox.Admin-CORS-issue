@@ -1,0 +1,27 @@
+.file-input {
+    display: none;
+}
+
+.file-upload {
+    border: solid 1px #ebdbdb;
+    width: 100%;
+    max-width: 380px;
+    padding: 7px;
+    border-radius: 15px;
+    margin-right: 24px;
+    max-height: 55px;
+
+    .btn-attachment {
+        float: right;
+        display: flex;
+        justify-content: end;
+    }
+
+    .file-name {
+        padding-top: 8px;
+        position: absolute;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

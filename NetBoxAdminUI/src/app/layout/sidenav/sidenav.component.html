@@ -1,0 +1,116 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <div class="container-fluid">
+
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" (click)="isCollapsed=!isCollapsed"
+      aria-controls="sidenav-collapse-main">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
+      <img src="../assets/img/logo/logo-dark.png">
+      <!-- <button class="navbar-toggle" type="button" aria-controls="sidenav-collapse-main">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+    </a>
+    <!-- User -->
+    <ul class="nav align-items-center d-md-none">
+      <li class="nav-item" ngbDropdown placement="bottom-right">
+        <a class="nav-link" role="button" ngbDropdownToggle>
+          <div class="media align-items-center">
+            <span class="avatar avatar-sm rounded-circle">
+              <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+            </span>
+          </div>
+        </a>
+        <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
+          <a routerLinkActive="active" [routerLink]="['/user-profile']" class="dropdown-item">
+            <i class="ni ni-single-02"></i>
+            <span>My profile</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()">
+            <i class="ni ni-user-run"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </li>
+    </ul>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <div class="navbar-collapse-header d-md-none">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a routerLinkActive="active" [routerLink]="['/dashboard']">
+              <img src="../assets/img/logo/logo-dark.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" (click)="isCollapsed=!isCollapsed">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a routerLinkActive="active" [routerLink]="'/dashboard'" class="nav-link">
+            <i class="ni ni-tv-2 text-primary"></i>
+            <span class="menu-item">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item" [netBoxAuthorization]="[p.SA.all,p.User.view,p.Role.view]">
+          <a routerLinkActive="active" [routerLink]="'users'" class="nav-link">
+            <i class="ni ni-single-02 text-yellow"></i>
+            <span class="menu-item">Users</span>
+          </a>
+        </li>
+
+        <li class="nav-item" [netBoxAuthorization]="[p.SA.all,p.User.view,p.Role.view]">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="ni ni-settings text-red"></i>
+                <span class="menu-item ml-20">Settings</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="sidebar-sub-menu">
+              <li class="sidemenu-item" [netBoxAuthorization]="[p.SA.all,p.Settings.Service.view]">
+                <a routerLinkActive="active" [routerLink]="['settings/service']">
+                  <span class="sub-menu-text ml-20">Services</span>
+                </a>
+              </li>
+              <li class="sidemenu-item" [netBoxAuthorization]="[p.SA.all,p.Settings.ClientType.view]">
+                <a routerLinkActive="active" [routerLink]="['settings/client-type']">
+                  <span class="sub-menu-text ml-20">Client Type</span>
+                </a>
+              </li>
+              <li class="sidemenu-item" [netBoxAuthorization]="[p.SA.all,p.Settings.JobType.view]">
+                <a routerLinkActive="active" [routerLink]="['settings/job-type']">
+                  <span class="sub-menu-text ml-20">Job Type</span>
+                </a>
+              </li>
+              <li class="sidemenu-item" [netBoxAuthorization]="[p.SA.all,p.Settings.DesignSentByMode.view]">
+                <a routerLinkActive="active" [routerLink]="['settings/design-received-medium']">
+                  <span class="sub-menu-text ml-20">Design Re. Medium</span>
+                </a>
+              </li>
+              <li class="sidemenu-item" [netBoxAuthorization]="[p.SA.all,p.Advertisement.view]">
+                <a routerLinkActive="active" [routerLink]="['settings/advertising-material']">
+                  <span class="sub-menu-text ml-20">Advertising Material</span>
+                </a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

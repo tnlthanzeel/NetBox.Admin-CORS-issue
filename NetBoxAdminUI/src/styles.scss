@@ -1,0 +1,180 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$netbox-primary: mat.define-palette(mat.$indigo-palette);
+$netbox-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$netbox-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$netbox-theme: mat.define-light-theme((color: (primary: $netbox-primary,
+                accent: $netbox-accent,
+                warn: $netbox-warn,
+            )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($netbox-theme);
+
+@import 'ngx-toastr/toastr';
+
+.modal-content {
+    height: 90vh !important;
+    // overflow: scroll !important;
+    z-index: 1 !important;
+    position: relative !important;
+}
+
+.modal-body {
+    height: 100vh !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.card-design {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+
+.fluid-wrapper {
+    height: 80vh;
+    overflow: auto;
+}
+
+.mat-mdc-tab-header {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    --mdc-tab-indicator-active-indicator-height: 2px;
+    --mdc-tab-indicator-active-indicator-shape: 0;
+    --mdc-secondary-navigation-tab-container-height: 48px;
+    background-color: #fff !important;
+    border-bottom: 1px solid #D9D9D9 !important;
+}
+
+.mat-mdc-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 1;
+    border-bottom-style: none !important;
+    border-bottom-width: var(--mat-tab-header-divider-height);
+    border-bottom-color: var(--mat-tab-header-divider-color);
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+    flex-grow: 0 !important;
+}
+
+.mat-mdc-tab-header {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    --mdc-tab-indicator-active-indicator-height: 2px;
+    --mdc-tab-indicator-active-indicator-shape: 0;
+    --mdc-secondary-navigation-tab-container-height: 55px !important;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: #373737 !important;
+    background-color: #D2E7FF !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+}
+
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
+    --mdc-tab-indicator-active-indicator-color: #ffffff !important;
+    --mat-tab-header-disabled-ripple-color: rgba(0, 0, 0, 0.38);
+    --mat-tab-header-pagination-icon-color: #000;
+    --mat-tab-header-inactive-label-text-color: rgba(0, 0, 0, 0.6);
+    --mat-tab-header-active-label-text-color: #ffffff !important;
+    --mat-tab-header-active-ripple-color: #ffffff !important;
+    --mat-tab-header-inactive-ripple-color: #ffffff !important;
+    --mat-tab-header-inactive-focus-label-text-color: rgba(0, 0, 0, 0.6);
+    --mat-tab-header-inactive-hover-label-text-color: rgba(0, 0, 0, 0.6);
+    --mat-tab-header-active-focus-label-text-color: #ffffff !important;
+    --mat-tab-header-active-hover-label-text-color: #ffffff !important;
+    --mat-tab-header-active-focus-indicator-color: #ffffff !important;
+    --mat-tab-header-active-hover-indicator-color: #ffffff !important;
+}
+
+.mat-mdc-tab-label-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    z-index: 0 !important;
+    border-bottom-style: solid;
+    border-bottom-width: var(--mat-tab-header-divider-height);
+    border-bottom-color: var(--mat-tab-header-divider-color);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 1.25rem + 2px);
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000000 !important;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #cad1d7;
+    border-radius: 0.375rem;
+    box-shadow: none;
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.loader {
+    width: 24px;
+    padding: 4px;
+    aspect-ratio: 1;
+    margin-left: 8px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+.hover-pointer {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.mat-expansion-panel-body {
+    padding: 0px !important;
+}
+
+.mat-expansion-panel{
+    box-shadow: none !important;
+}

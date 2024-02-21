@@ -1,0 +1,119 @@
+<netbox-block-ui [isBlocked]="isBlocked"></netbox-block-ui>
+<div class="container-fluid fluid-wrapper mt-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Design Sent Mode</h3>
+                        </div>
+                        <div class="col-4 text-right"
+                            [netBoxAuthorization]="[p.SA.all,p.Settings.DesignSentByMode.create]">
+                            <a (click)="displayJobTypeManage()" class="btn btn-sm btn-primary">+ Design Sent Mode</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Mode</th>
+                                <th scope="col">Icon</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let medium of designMediums">
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">
+                                            <span class="mb-0 text-sm">{{medium.mode}}</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="media-body">
+                                            <img [src]="medium.imageURL" [height]="50" [width]="50">
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="j-end"
+                                    [netBoxAuthorization]="[p.SA.all,p.Settings.DesignSentByMode.update, p.Settings.DesignSentByMode.delete]">
+                                    <a class="btn btn-sm" (click)="getDesignMediumById(medium)"
+                                        [netBoxAuthorization]="[p.SA.all,p.Settings.DesignSentByMode.update]"> <i
+                                            class="fas fa-edit"></i></a>
+                                    <a class="btn btn-sm" (click)="deleteDesignMedium(medium)"
+                                        [netBoxAuthorization]="[p.SA.all,p.Settings.DesignSentByMode.delete]"> <i
+                                            class="fa fa-trash" aria-hidden="true"></i></a>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="mx-auto">
+                        <netbox-no-records [items]="designMediums"></netbox-no-records>
+                    </div>
+                </div>
+                <div class="card-footer py-4">
+                    <mat-paginator [length]="searchModel.totalRecords" [pageSize]="searchModel.pageSize"
+                        (page)="pageChanged($event)" [pageSizeOptions]="pageSizeOptions" aria-label="Select page"
+                        [showFirstLastButtons]="true">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6" *ngIf="displayDesignMediumCreation">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0" *ngIf="!isEdit">Create Design Sent Mode</h3>
+                            <h3 class="mb-0" *ngIf="isEdit">Update Design Sent Mode</h3>
+                        </div>
+                        <div class="col-4 text-right">
+                            <a (click)="create()" class="btn btn-sm btn-primary" *ngIf="!isEdit">CREATE</a>
+                            <a (click)="update()" class="btn btn-sm btn-primary" *ngIf="isEdit">UPDATE</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form [formGroup]="designMediumForm">
+                        <div class="form w-100">
+                            <label class="form__label">Design Sent Mode<span class="danger-color">*</span></label>
+                            <input class="form-control form-control-alternative" placeholder="Ex : Whatsapp"
+                                formControlName="mode" autocomplete="off">
+                            <div class="badge badge-danger" *ngIf="validationModel.displayMessage.mode">
+                                {{validationModel.displayMessage.mode}}
+                            </div>
+                        </div>
+
+                        <div class="form w-100 mt-3 ">
+                            <label class="form__label">Icon<span class="danger-color">*</span></label>
+
+                            <div class="d-flex">
+                                <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                                <div class="file-upload">
+                                    <span class="file-name"> {{fileName || "No file uploaded yet."}}</span>
+                                    <div class="btn-attachment">
+                                        <button mat-mini-fab color="primary" class="upload-btn"
+                                            (click)="fileUpload.click()">
+                                            <mat-icon>attach_file</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <img [src]="selectedImageUrl" [height]="100" [width]="100" *ngIf="selectedImageUrl">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
